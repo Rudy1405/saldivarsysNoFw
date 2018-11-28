@@ -1,0 +1,286 @@
+/*
+  Modal Styles
+ */
+.pl-modal-overlay {
+  background-color: transparent;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  -webkit-transition: background-color 375ms;
+  transition: background-color 375ms;
+}
+.pl-modal-overlay.pl-modal-open {
+  background-color: rgba(0,0,0,0.65);
+}
+.pl-modal {
+  background-color: transparent;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  left: 50%;
+  position: fixed;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+/* visibility hidden */
+    width: 70%;
+/* .pl-modal-open
+    visibility visible */
+}
+.pl-modal-close-button {
+  cursor: pointer;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
+.pl-modal-close-button:after {
+  color: #fff;
+  content: 'x';
+  font-size: 25px;
+  font-weight: 300;
+  line-height: 15px;
+}
+/*
+  Modal Animations
+ */
+/* Default Effect */
+.pl-modal .pl-modal-content {
+  opacity: 0;
+  -webkit-transition: opacity 375ms;
+  transition: opacity 375ms;
+}
+.pl-modal.pl-modal-open .pl-modal-content {
+  opacity: 1;
+}
+/* Effect 1: Fade in and scale up */
+.pl-modal.pl-effect-1 .pl-modal-content {
+  opacity: 0;
+  -webkit-transform: scale(0.7);
+          transform: scale(0.7);
+  -webkit-transition: opacity 375ms, -webkit-transform 375ms;
+  transition: opacity 375ms, -webkit-transform 375ms;
+  transition: opacity 375ms, transform 375ms;
+  transition: opacity 375ms, transform 375ms, -webkit-transform 375ms;
+}
+.pl-modal.pl-effect-1.pl-modal-open .pl-modal-content {
+  opacity: 1;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+/* Effect 2: Slide from the right */
+.pl-modal.pl-effect-2 .pl-modal-content {
+  opacity: 0;
+  -webkit-transform: translateX(20%);
+          transform: translateX(20%);
+  -webkit-transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+  transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+}
+.pl-modal.pl-effect-2.pl-modal-open .pl-modal-content {
+  opacity: 1;
+  -webkit-transform: translateX(0);
+          transform: translateX(0);
+}
+/* Effect 3: Slide from the bottom */
+.pl-modal.pl-effect-3 .pl-modal-content {
+  opacity: 0;
+  -webkit-transform: translateY(20%);
+          transform: translateY(20%);
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.pl-modal.pl-effect-3.pl-modal-open .pl-modal-content {
+  opacity: 1;
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+}
+/* Effect 4: Newspaper */
+.pl-modal.pl-effect-4 .pl-modal-content {
+  opacity: 0;
+  -webkit-transform: scale(0) rotate(720deg);
+          transform: scale(0) rotate(720deg);
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+.pl-modal.pl-effect-4.pl-modal-open .pl-modal-content {
+  opacity: 1;
+  -webkit-transform: scale(1) rotate(0deg);
+          transform: scale(1) rotate(0deg);
+}
+/* Effect 5: Fall */
+.pl-modal.pl-effect-5 {
+  -webkit-perspective: 1300px;
+          perspective: 1300px;
+}
+.pl-modal.pl-effect-5 .pl-modal-content {
+  opacity: 0;
+  -webkit-transition: all 0.3s ease-in;
+  transition: all 0.3s ease-in;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-transform: translateZ(600px) rotateX(20deg);
+          transform: translateZ(600px) rotateX(20deg);
+}
+.pl-modal.pl-effect-5.pl-modal-open .pl-modal-content {
+  opacity: 1;
+  -webkit-transform: translateZ(0px) rotateX(0deg);
+          transform: translateZ(0px) rotateX(0deg);
+}
+/* Effect 6: Side fall */
+.pl-modal.pl-effect-6 {
+  -webkit-perspective: 1300px;
+          perspective: 1300px;
+}
+.pl-modal.pl-effect-6 .pl-modal-content {
+  opacity: 0;
+  -webkit-transition: all 0.3s ease-in;
+  transition: all 0.3s ease-in;
+  -webkit-transform: translate(30%) translateZ(600px) rotate(10deg);
+          transform: translate(30%) translateZ(600px) rotate(10deg);
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+}
+.pl-modal.pl-effect-6.pl-modal-open .pl-modal-content {
+  opacity: 1;
+  -webkit-transform: translate(0%) translateZ(0) rotate(0deg);
+          transform: translate(0%) translateZ(0) rotate(0deg);
+}
+/* Effect 7: Slide and stick to top */
+.pl-modal.pl-effect-7 {
+  top: 0;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+.pl-modal.pl-effect-7 .pl-modal-content {
+  border-radius: 0 0 3px 3px;
+  opacity: 0;
+  -webkit-transform: translateY(-200%);
+          transform: translateY(-200%);
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.pl-modal.pl-effect-7.pl-modal-open .pl-modal-content {
+  opacity: 1;
+  -webkit-transform: translateY(0%);
+          transform: translateY(0%);
+}
+/* Effect 8: 3D flip horizontal */
+.pl-modal.pl-effect-8 {
+  -webkit-perspective: 1300px;
+          perspective: 1300px;
+}
+.pl-modal.pl-effect-8 .pl-modal-content {
+  opacity: 0;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-transform: rotateY(-70deg);
+          transform: rotateY(-70deg);
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.pl-modal.pl-effect-8.pl-modal-open .pl-modal-content {
+  opacity: 1;
+  -webkit-transform: rotateY(0deg);
+          transform: rotateY(0deg);
+}
+/* Effect 9: 3D flip vertical */
+.pl-modal.pl-effect-9 {
+  -webkit-perspective: 1300px;
+          perspective: 1300px;
+}
+.pl-modal.pl-effect-9 .pl-modal-content {
+  opacity: 0;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-transform: rotateX(-70deg);
+          transform: rotateX(-70deg);
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.pl-modal.pl-effect-9.pl-modal-open .pl-modal-content {
+  opacity: 1;
+  -webkit-transform: rotateX(0deg);
+          transform: rotateX(0deg);
+}
+/* Effect 10: 3D sign */
+.pl-modal.pl-effect-10 {
+  -webkit-perspective: 1300px;
+          perspective: 1300px;
+}
+.pl-modal.pl-effect-10 .pl-modal-content {
+  opacity: 0;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-transform: rotateX(-60deg);
+          transform: rotateX(-60deg);
+  -webkit-transform-origin: 50% 0;
+          transform-origin: 50% 0;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.pl-modal.pl-effect-10.pl-modal-open .pl-modal-content {
+  opacity: 1;
+  -webkit-transform: rotateX(0deg);
+          transform: rotateX(0deg);
+}
+/* Effect 11: Super scaled */
+.pl-modal.pl-effect-11 .pl-modal-content {
+  opacity: 0;
+  -webkit-transform: scale(2);
+          transform: scale(2);
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.pl-modal.pl-effect-11.pl-modal-open .pl-modal-content {
+  opacity: 1;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+}
+/* Effect 12: 3D Rotate from bottom */
+.pl-modal.pl-effect-12 {
+  -webkit-perspective: 1300px;
+          perspective: 1300px;
+}
+.pl-modal.pl-effect-12 .pl-modal-content {
+  opacity: 0;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-transform: translateY(100%) rotateX(90deg);
+          transform: translateY(100%) rotateX(90deg);
+  -webkit-transform-origin: 0 100%;
+          transform-origin: 0 100%;
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+.pl-modal.pl-effect-12.pl-modal-open .pl-modal-content {
+  opacity: 1;
+  -webkit-transform: translateY(0%) rotateX(0deg);
+          transform: translateY(0%) rotateX(0deg);
+}
+/* Effect 13: 3D Rotate in from left */
+.pl-modal.pl-effect-13 {
+  -webkit-perspective: 1300px;
+          perspective: 1300px;
+}
+.pl-modal.pl-effect-13 .pl-modal-content {
+  opacity: 0;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-transform: translateZ(100px) translateX(-30%) rotateY(90deg);
+          transform: translateZ(100px) translateX(-30%) rotateY(90deg);
+  -webkit-transform-origin: 0 100%;
+          transform-origin: 0 100%;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.pl-modal.pl-effect-13.pl-modal-open .pl-modal-content {
+  opacity: 1;
+  -webkit-transform: translateZ(0px) translateX(0%) rotateY(0deg);
+          transform: translateZ(0px) translateX(0%) rotateY(0deg);
+}
+@media (max-width: 767px) {
+  .pl-modal {
+    max-width: 500px;
+    width: 90%;
+  }
+}

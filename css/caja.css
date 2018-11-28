@@ -1,0 +1,245 @@
+body{
+    margin: 0;
+}
+
+.outer-wrapper{
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.wrapper-row{
+    margin: 0;
+}
+
+.hidden-xs{
+    display: block;
+}
+
+.selling{
+    padding: 0;
+}
+.selling .header{
+    display: flex;
+    height: 17vh;
+}
+.selling .header .content{
+    text-align: center;
+    padding: 3% 0;
+    background-color: #5b9f67;
+}
+.selling .header .content .title{
+    font-size: 31px;
+    letter-spacing: 3px;
+    color: white;
+}
+.selling .header .content .name{
+    font-size: 17px;
+    color: white;
+}
+.selling .header .agregar{
+    padding: 20px;
+    background-color: #5b9f67;
+}
+
+.selling .header .agregar form{
+    width: 100%;
+    display: flex;
+    margin-bottom: 20px;
+}
+.selling .header .agregar .submit{
+    width: 20%;
+}
+.selling .header .agregar .client{
+    width: 100%;
+}
+
+.selling .header .agregar .autocomplete{
+    width: 70%;
+}
+.selling .header .agregar .autocomplete input{
+    width: 100%;
+}
+
+.selling .header .agregar .plus-btn{
+    width: 10%;
+}
+
+
+.selling .articles{
+    padding: 20px 10px;
+    height: 83vh;
+    overflow-y: scroll;
+    background-image: url("../img/leaf.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #caf0ca;
+}
+
+.selling .articles .item {
+    display: flex;
+    background-color: white;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    padding: 9px;
+    position: relative;
+}
+
+.selling .item .delete-button{
+    top: -9px;
+    font-size: 25px;
+    color: #000000;
+    position: absolute;
+    right: 11px;
+}
+.selling .articles .item .title{
+
+}
+
+.selling .articles .item .icon{
+
+}
+
+.selling .articles .item .desc{
+
+}
+.selling .articles .item .features{
+
+}
+
+.selling .articles .item .features .branch{
+
+}
+.selling .articles .item .features .presentation{
+
+}
+
+.selling .articles .item .amount{
+    width: 80px;
+    align-items: center;
+    display: inherit;
+}
+.selling .articles .item .pay{
+    width: 100px;
+    align-items: center;
+    display: inherit;
+
+}
+.selling .articles .item .price{
+    align-items: center;
+    display: inherit;
+
+}
+
+.selling .articles .item .amount .custom-select{
+
+}
+
+.payment{
+    padding: 0;
+}
+
+.payment .pay {
+    height: 17vh;
+    display: flex;
+    padding: 10px;
+    background-color: #8cc08c;
+    position: relative;
+}
+.payment .pay .pay-btn{
+    font-size: 28px;
+    width: 80%;
+    height: 70px;
+    background-color: #b21919;
+    border-radius: 15px;
+    color: white;
+    text-align: center;
+    line-height: 2.4;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.payment .total{
+    height: 83vh;
+    background-image: url("../img/leaves-4.svg");
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    background-size: 70%;
+    background-color: #e3f8e3;
+    padding: 20px;
+}
+.payment .total .prod-price{
+    font-size: 40px;
+    color: #086608;
+    text-align: right;
+}
+.payment .total .title {
+    font-size: 28px;
+}
+.payment .total .radio-container{
+    width: 150px;
+    margin: 0 auto;
+}
+.payment .total .radio-container input{
+
+}
+.payment .total .radio-container label{
+    font-size: 22px;
+    color: #316a31;
+}
+
+
+* { box-sizing: border-box; }
+body {
+    font: 16px Arial;
+}
+.autocomplete {
+    /*the container must be positioned relative:*/
+    position: relative;
+    display: inline-block;
+}
+input {
+    border: 1px solid transparent;
+    background-color: #f1f1f1;
+    padding: 10px;
+    font-size: 16px;
+}
+input[type=text] {
+    background-color: #f1f1f1;
+    width: 100%;
+}
+
+.autocomplete-items {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    /*position the autocomplete items to be the same width as the container:*/
+    top: 100%;
+    left: 0;
+    right: 0;
+}
+.autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+}
+.autocomplete-items div:hover {
+    /*when hovering an item:*/
+    background-color: #e9e9e9;
+}
+.autocomplete-active {
+    /*when navigating through the items using the arrow keys:*/
+    background-color: DodgerBlue !important;
+    color: #ffffff;
+}
+
+@media(max-width: 768px){
+    .hidden-xs{
+        display: none;
+    }
+}

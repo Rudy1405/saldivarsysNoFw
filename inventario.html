@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/inventario.css">
+    <link rel="stylesheet" href="css/pl-modal.css">
+    <title>Inventario - Tienda Saldivar</title>
+    <!--Import this shit is oimportatn tho-->
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-firestore.js"></script>
+</head>
+
+<body>
+    <div class="outter-wrapper inventario">
+        <div class="header">
+            <div class="title">
+                <img src="./img/inventario.svg" alt=""> INVENTARIO </div>
+            <div class="content">
+                <div class="menu">
+                    <!--<a href="#" class="btn" id="edit-inv">Editar Inventario</a>-->
+                    <a href="#" class="btn add-btn" id="ad-prod">Agregar Producto</a>
+                    <a href="#" class="btn" id="bodega">Ir a Bodega</a>
+                </div>
+                <div class="search">
+                    <input data-clue="Ingrese carracteres alfanumericos." name="prducts" placeholder="Ingrese nombre de producto o clave" type="text">
+                </div>
+            </div>
+        </div>
+        <div class="inventario wrap">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col"># Clave</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Categoria</th>
+                        <th scope="col">Sub-Categoria</th>
+                        <th scope="col">Marca/Laboratorio</th>
+                        <th scope="col">Descripcion</th>
+                        <th scope="col">Presentacion</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Unidad</th>
+                        <th scope="col">Peso</th>
+                        <th scope="col">Uso</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Precio Semi-Mayoreo</th>
+                        <th scope="col">Precio Mayoreo</th>
+                        <th scope="col">IVA</th>
+                        <th scope="col">EDITAR</th>
+                    </tr>
+                </thead>
+                <tbody id="tableishon">
+                    <tr>
+                        <th scope="row">0023</th>
+                        <td contenteditable="true">Jabon Alcatraz</td>
+                        <td contenteditable="true">Naturista</td>
+                        <td contenteditable="true">Jabones</td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true">Jabon Humectante</td>
+                        <td contenteditable="true">Jabon Barra</td>
+                        <td contenteditable="true">100</td>
+                        <td contenteditable="true">1</td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true">Piel reseca</td>
+                        <td contenteditable="true">$10</td>
+                        <td contenteditable="true">$8</td>
+                        <td contenteditable="true">$6</td>
+                        <td contenteditable="true"></td>
+                        <td>
+                            <a href="" class="editar"><img src="" alt=""></a>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <th scope="row">0024</th>
+                        <td contenteditable="true">Tabletas ajolin</td>
+                        <td contenteditable="true">naturistas</td>
+                        <td contenteditable="true">Tabletas</td>
+                        <td contenteditable="true">Ayeyete</td>
+                        <td contenteditable="true">Tabletas para la tos</td>
+                        <td contenteditable="true">Frasco</td>
+                        <td contenteditable="true">60</td>
+                        <td contenteditable="true">20</td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true">Para la tos</td>
+                        <td contenteditable="true">$80</td>
+                        <td contenteditable="true">$78</td>
+                        <td contenteditable="true">$75</td>
+                        <td contenteditable="true">16%</td>
+                        <td>
+                            <a href="" class="editar"><img src="" alt=""></a>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <th scope="row">0025</th>
+                        <td contenteditable="true">Manzanilla a granel</td>
+                        <td contenteditable="true">naturistas</td>
+                        <td contenteditable="true">Yerbas</td>
+                        <td contenteditable="true"></td>
+                        <td contenteditable="true">Yerbas de manzanilla</td>
+                        <td contenteditable="true">a granel</td>
+                        <td contenteditable="true">250g</td>
+                        <td contenteditable="true">1</td>
+                        <td contenteditable="true">250g</td>
+                        <td contenteditable="true">Varios</td>
+                        <td contenteditable="true">$20</td>
+                        <td contenteditable="true">$18</td>
+                        <td contenteditable="true">$15</td>
+                        <td contenteditable="true"></td>
+                        <td>
+                            <a href="" class="editar"><img src="" alt=""></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="hidden">
+            <div class="modal-agregar">
+                <div class="header">
+                    <div id="tituloAgregado" class="title">Agregar producto</div>
+                </div>
+                <div class="content row">
+                    <div class="col-4">
+                        <input data-clue="Ingrese carracteres alfanumericos." id="idart" name="idart" placeholder="id del articulo" type="text">
+                        <input data-clue="Ingrese carracteres alfanumericos." id="nombre" name="nombre" placeholder="Nombre" type="text">
+                        <input data-clue="Ingrese carracteres alfanumericos." id="subnombre" name="subnombre" placeholder="SubNombre" type="text">
+                        <input data-clue="Ingrese carracteres alfanumericos." id="categoria" name="categoria" placeholder="Categoría" type="text">
+                        <input data-clue="Ingrese carracteres alfanumericos." id="pres" name="presentacion" placeholder="Presentacion" type="text">
+                    </div>
+                    <div class="col-4">
+                        <input data-clue="Ingrese carracteres alfanumericos." id="subcategoria" name="sub-categoria" placeholder="Sub Categoria" type="text">
+                        <input data-clue="Ingrese carracteres alfanumericos." id="cant" name="cantidad" placeholder="Cantidad" type="text">
+                        <input data-clue="Ingrese carracteres alfanumericos." id="unidad" name="unidad" placeholder="Unidad" type="text">
+                        <input data-clue="Ingrese carracteres alfanumericos." id="peso" name="peso" placeholder="Peso" type="text">
+                        <input data-clue="Ingrese carracteres alfanumericos." id="uso" name="uso" placeholder="uso" type="text">
+                    </div>
+                    <div class="col-4">
+                        <input data-clue="Ingrese carracteres alfanumericos." id="marca_lab" name="marca" placeholder="Marca / Laboratorio" type="text">
+                        <input data-clue="Ingrese carracteres alfanumericos." id="descripcion" name="descripcion" placeholder="Descripción" type="text">
+                        <input data-clue="Ingrese carracteres alfanumericos." id="precio" name="precio" placeholder="Precio" type="text">
+                        <input data-clue="Ingrese carracteres alfanumericos." id="semi" name="semi-mayoreo" placeholder="Precio Semi Mayoreo" type="text">
+                        <input data-clue="Ingrese carracteres alfanumericos." id="mayoreo" name="mayoreo" placeholder="Precio Mayoreo" type="text">
+                        <input data-clue="Ingrese carracteres alfanumericos." id="iva" name="iva" placeholder="IVA" type="text">
+                        <!-- <input data-clue="Ingrese carracteres alfanumericos." id="iva" name="iva" placeholder="IVA" type="text">-->
+                    </div>
+                    <div class="buttons">
+                        <button class="ad-btn" id="savedesu">
+                        Agregar
+                    </button>
+                        <!-- <button type="button" >Agregar</button>-->
+                        <button class="ad-btn pl-modal-cancel-button" id="canceldesu" type="button">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="./js/scripts.js"></script>
+    <script src="./js/pl-modal.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,67 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="apple-touch-icon" href="icon.png">
+    <!-- Place favicon.ico in the root directory -->
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+    <script language=JavaScript>
+        function login() {
+            if (document.form.password.value == 'admin' && document.form.user.value == 'admin') {
+                document.form.submit();
+            } else {
+                alert("Porfavor ingrese, nombre de usuario y contraseña correctos.");
+            }
+        }
+    </script>
+    <div class="outer-wrapper">
+        <div class="content">
+            <div class="login">
+                <div class="header">
+                    <div class="text">Tienda Saldivar Sucursal Centro</div>
+                </div>
+                <div class="img">
+                    <img src="./img/ecology.svg" alt="">
+                </div>
+                <form name="form" action="inventario.html">
+                    <div class="input-container">
+                        <!--<p>Nombre de Usuario</p>-->
+                        <input data-validate="notEmpty" data-clue="Ingrese un nombre de usuario valido." name="user" placeholder="Usuario" type="text">
+                    </div>
+                    <div class="input-container">
+                        <!--<p>Contraseña</p>-->
+                        <input data-validate="notEmpty" data-clue="Ingrese una contraseña valida." name="password" placeholder="Contraseña" type="password">
+                    </div>
+                    <div class="btn">
+                        <input onclick="login()" type="button" value="< INGRESAR">
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Add your site or application content here -->
+    <script src="js/vendor/modernizr-{{MODERNIZR_VERSION}}.min.js"></script>
+    <script src="https://code.jquery.com/jquery-{{JQUERY_VERSION}}.min.js" integrity="{{JQUERY_SRI_HASH}}" crossorigin="anonymous"></script>
+    <script>
+        window.jQuery || document.write('<script src="js/vendor/jquery-{{JQUERY_VERSION}}.min.js"><\/script>')
+    </script>
+    <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
+
+</body>
+
+</html>

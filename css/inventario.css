@@ -1,0 +1,118 @@
+body{
+    margin: 0;
+}
+
+.hidden{
+    display: none !important;
+}
+.outer-wrapper.inventario{
+    width: 100%;
+    min-height: 100vh;
+
+}
+
+.inventario .header{
+    height: 100px;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    padding-top: 20px;
+    background-image: linear-gradient(#6fc649, #fff);
+}
+.inventario .header .title{
+    font-size: 25px;
+    align-items: center;
+    text-align: center;
+    width: 30%;
+    height: 100%;
+    color: #179400;
+}
+
+.inventario .header .title img{
+    height: 60px;
+    width: 60px;
+}
+
+.inventario .header .content{
+    width: 70%;
+    height: 100%;
+    position: relative;
+}
+.inventario .header .content .menu{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 6px;
+}
+
+.inventario .header .content .menu .btn{
+    text-decoration: none;
+    background-color: #6bb741;
+    color: #fff;
+    border: 1px solid #349e17;
+    margin-right: 10px;
+}
+
+.inventario .header .content .search{
+    left: 50%;
+    position: absolute;
+    transform: translateX(-50%);
+    width: 350px;
+    padding: 0 10px;
+}
+
+.inventario .header .content .search input{
+    width: 100%;
+}
+
+.inventario.wrap{
+    overflow-y: scroll;
+    width: 100vw;
+}
+.inventario.wrap::-webkit-scrollbar {
+    display:none;
+}
+
+.modal-agregar{
+    width: 100%;
+    height: 380px;
+    background: #b9eb82;
+    padding: 0 30px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+}
+
+.modal-agregar .header{
+    width: 100%;
+    background: transparent;
+    padding: 10px 0;
+}
+
+.modal-agregar .header .title{
+    font-size: 29px;
+    width: 100%;
+}
+
+.modal-agregar .content input{
+    margin-bottom: 10px;
+    width: 95%;
+}
+
+.modal-agregar .content .buttons
+{
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+
+}
+
+.modal-agregar .content .buttons .ad-btn
+{
+    text-decoration: none;
+    background-color: #6bb741;
+    color: #fff;
+    border: 1px solid #349e17;
+    margin-right: 10px;
+    border-radius: 5px;
+    width: 110px;
+}

@@ -1,0 +1,108 @@
+body{
+    overflow: hidden;
+    margin: 0;
+}
+.outer-wrapper{
+    overflow: hidden;
+}
+.content{
+    height: 100vh;
+    width: 100vw;
+    background-image: url("../img/loginbg.jpg");
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    font-family: monospace;
+    }
+
+
+.content .login{
+    width: 600px;
+    height: 650px;
+    background-color: #ffffff;
+    margin: auto;
+}
+.content .login .img{
+    width: 80px;
+    margin: auto;
+    margin-top: 55px;
+}
+.content .login .img img{
+    width: 80px;
+    height: 80px;
+}
+
+.header {
+    height: 40px;
+    align-items: center;
+    display: flex;
+    background-color: #c3c3c3;
+}
+
+.text{
+    text-align: center;
+    font-size: 22px;
+    margin: auto;
+
+}
+
+form {
+    position: absolute;
+    top: 58%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.input-container {
+    text-align: center;
+    width: 250px;
+    margin-bottom: 60px;
+}
+
+.input-container p {
+    font-size: 18px;
+}
+
+.input-container input{
+    width: 87%;
+    height: 30px;
+    border: none;
+    border-bottom: 2px solid #666666;
+}
+.btn{
+    display: flex;
+}
+.btn input[type=submit] {
+    padding:5px 15px;
+    background:#ccc;
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    margin-top: 20px;
+    margin: auto;
+}
+
+@media(max-width: 768px){
+    .content .login{
+        width: 70%;
+    }
+    .header .text{
+        font-size: 18px;
+
+    }
+}
+
+@media (max-width: 480px) {
+
+    .content .login{
+        width: 95%;
+        height: 98vh;
+    }
+
+    .header .text{
+        font-size: 15px;
+    }
+
+}

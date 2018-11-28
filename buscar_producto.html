@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/b_productos.css">
+    <title>Consultar Productos</title>
+</head>
+<body>
+<div class="outer-wrapper b-prod">
+        <section class="block busqueda" id="busqueda">
+            <div class="header">
+                <h3>Filtros de busqueda</h3>
+            </div>
+            <div class="logo" href="/">
+                <img class="hidde-xs" alt="Saldivar" src="./img/pill.svg">
+            </div>
+            <div class="filtros">
+
+                <div class="input-container" >
+                    <div class="filter-icon"></div>
+                    <input data-clue="Ingrese carracteres alfanumericos." id="name" name="product-name" placeholder="Nombre del producto" type="text">
+                </div>
+
+                <div class="input-container" id="subname" style="display: none">
+                    <div class="filter-icon"></div>
+                    <input data-clue="Ingrese carracteres alfanumericos." name="producr-subname" placeholder="Sub-nombre" type="text">
+                </div>
+
+                <div class="input-container" id="usage" style="display: none">
+                    <div class="filter-icon"></div>
+                    <input data-clue="Ingrese carracteres alfanumericos." name="use" placeholder="Uso" type="text">
+                </div>
+                <div class="select-container categoria" >
+                    <div class="filter-icon"></div>
+                    <select name="cat" id="category">
+                        <option value=" ">Selecciona</option>
+                        <option value="naturista">Naturista</option>
+                        <option value="esoterico">Esoterico</option>
+                    </select>
+                </div>
+                <div class="select-container sub-categoria" >
+                    <div class="filter-icon"></div>
+                    <select name="sub-cat" id="subcategory">
+                        <option value=" ">Selecciona</option>
+                        <option value="suplemento">Suplementos</option>
+                        <option value="escencia">Escencia</option>
+                        <option value="belleza">Belleza</option>
+                    </select>
+                </div>
+                <div class="select-container marca"  style="display: none">
+                    <div class="filter-icon"></div>
+                    <select name="mar" id="brand">
+                        <option value="7-machos">7 Machos</option>
+                        <option value="azteca">Azteca</option>
+                        <option value="huichol">Huichol</option>
+                    </select>
+                </div>
+                <div class="select-container presentacion"  style="display: none">
+                    <div class="filter-icon"></div>
+                    <select name="pres" id="presentation">
+                        <option value="botella">Botella</option>
+                        <option value="caja">Caja</option>
+                        <option value="frasco">Frasco</option>
+                    </select>
+                </div>
+                <div class="btn" id="searchButton">
+                    <input type="button" value="Buscar..">
+                </div>
+            </div>
+
+            <button class="toggle-btn visible-xs ">
+                <span class="bar one"></span>
+                <span class="bar two"></span>
+                <span class="bar three"></span>
+            </button>
+
+        </section>
+        <section class="block productos" id="producros">
+            <div class="header">
+                <h1>Productos</h1>
+            </div>
+            <div class="content">
+                <div class="row">
+                    <div class="article col-md-4 col-sm-6 col-12" data-name="carbon activado" data-cat="naturista" data-sub="suplemento">
+                        <div class="wrapper">
+                            <div class="name">Carbon activado</div>
+                            <div class="middle">
+                                <div class="img">
+                                    <img src="./img/herbal.svg" alt="">
+                                    <div class="kind">Pastillas</div>
+                                </div>
+                                <div class="data">
+                                    <div class="precio">$ 50</div>
+                                    <div class="presentacion">Frasco</div>
+                                    <div class="marca">Azteca</div>
+                                </div>
+                            </div>
+                            <div class="desc">
+                                <div class="title">Descripción</div>
+                                <div class="text">Frasco con 30 pastillas que sirven para la digestion</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="article col-md-4 col-sm-6 col-12" data-name="shampoo huichol" data-cat="naturista" data-sub="belleza">
+                        <div class="wrapper">
+                            <div class="name">Shampoo Huichol</div>
+                            <div class="middle">
+                                <div class="img">
+                                    <img src="./img/bottle.svg" alt="">
+                                    <div class="kind">Shampoo</div>
+                                </div>
+                                <div class="data">
+                                    <div class="precio">$ 70</div>
+                                    <div class="presentacion">Botella</div>
+                                    <div class="marca">Huichol</div>
+                                </div>
+                            </div>
+                            <div class="desc">
+                                <div class="title">Descripción</div>
+                                <div class="text">Shampoo para evitar la caida de cabello</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="article col-md-4 col-sm-6 col-12" data-name="escencia de romero" data-cat="esoterico" data-sub="escencia">
+                        <div class="wrapper">
+                            <div class="name">Escencia de romero</div>
+                            <div class="middle">
+                                <div class="img">
+                                    <img src="./img/spa.svg" alt="">
+                                    <div class="kind">Escencia</div>
+                                </div>
+                                <div class="data">
+                                    <div class="precio">$ 30</div>
+                                    <div class="presentacion">Botella</div>
+                                    <div class="marca">Esentials</div>
+                                </div>
+                            </div>
+                            <div class="desc">
+                                <div class="title">Descripción</div>
+                                <div class="text">Botella con 20ml de escencia de romero</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="./js/scripts.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+</html>
