@@ -19,6 +19,7 @@ const adBtn = document.querySelector('#savedesu');
 //console.log(adBtn);
 
 
+//funcion bucarDoc no se usa
 function buscarDoc(aid) {
 
     // Create a reference to the cities collection
@@ -49,12 +50,20 @@ function borrarDoc(idDocumento) {
     invRef.doc(idDocumento).delete().then(function() {
         console.log("Document successfully deleted!");
         window.alert("Se ha eliminado el articulo, recarga para visualizar")
+
     }).catch(function(error) {
         console.error("Error removing document: ", error);
         window.alert("No se ha podido borrar el elemento ERROR!")
     });
 
 }
+
+
+///TODO:  Intentar que sea tiempo real, la consulta ya esta en terminos de snapshot por ende se deberia ver el cambio tras eliminar
+///       sin la neesidad de refrescar la pestana, ver porque, no hacer fix de que se refresque por medio de funcion, usar nativo para evitar costos grandes
+////      Poner el save articulo en terminos de snap ara qeu se pueda ver el cambio
+////      Quitar articulos dummy del HTML
+////      El mensaje de que sea a guardado el articulo ponerlo de color diferente para que se note que se hizo algo. ejemplo https://www.youtube.com/watch?v=AACc80JV1sY&list=PLPl81lqbj-4JiR1Cio6xEygCZDmZmDUWI&index=14
 
 
 var Page = {
@@ -91,8 +100,7 @@ var Page = {
      */
     _onLoad: function() {
         Page.showInventary();
-        //const docRef= firestore.doc("sucursales/suc1") /// remember that in the path we gonna alternate betwen COLLECTION/DOCUMENT/COLLECTION/DOCUMENT and so on
-        // var invRef = firestore.collection("inventarios/inventario1/articulos");
+
 
     },
 
@@ -391,15 +399,14 @@ var Page = {
         });
     },
     showInventary: function() {
-
         const tabla = document.getElementById("tableishon");
 
 
         var invRef = firestore.collection("inventarios/inventario1/articulos");
         var cont = 1;
         invRef.get()
-            .then(function(doc) {
-                doc.forEach(function(value) {
+            .then((snap) => {
+                snap.forEach((value) => {
                     const trc = document.createElement('tr');
                     const thc = document.createElement('th');
                     const tdc1 = document.createElement('td');
@@ -453,9 +460,10 @@ var Page = {
                     const delbtn = document.createElement('button');
                     delbtn.innerHTML = "Borrar"
                     editbtn.innerHTML = "Editar"
-                    let aid = value.data().id_art
+                        //let aid = value.data().id_art
                     delbtn.addEventListener("click", function() {
-                        buscarDoc(aid)
+                        //buscarDoc(aid) solo cuando no es snap
+                        borrarDoc(value.id)
                     })
                     editbtn.addEventListener("click", function() {
                         editarDoc(aid)
