@@ -1,4 +1,3 @@
-
 //init firebase
 var config = {
     apiKey: "AIzaSyA-NWAAlpYhAfpOlfFLtzffb7FUcdYxaKk",
@@ -12,12 +11,50 @@ firebase.initializeApp(config);
 
 /// lets create our point to firestore
 var firestore = firebase.firestore();
-const settings = {/* your settings... */ timestampsInSnapshots: true};
+const settings = { /* your settings... */ timestampsInSnapshots: true };
 firestore.settings(settings);
 
 
-const adBtn= document.querySelector('#savedesu');
+const adBtn = document.querySelector('#savedesu');
 //console.log(adBtn);
+
+
+function buscarDoc(aid) {
+
+    // Create a reference to the cities collection
+    var invRef = firestore.collection("inventarios/inventario1/articulos");
+    console.log("recibi ", aid)
+        // Create a query against the collection.
+    if (aid != "") {
+        invRef.where("id_art", "==", aid)
+            .get()
+            .then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                    // console.log(doc.id, " => ", doc.data()); is never undefined for query doc snapshots
+                    borrarDoc(doc.id)
+                });
+            })
+            .catch(function(error) {
+                console.log("Error getting documents: ", error);
+            });
+    } else {
+        console.warn("id_art es vacio, no se puede procesar")
+        window.alert("id es vacio, no se puede procesar")
+    }
+
+}
+
+function borrarDoc(idDocumento) {
+    var invRef = firestore.collection("inventarios/inventario1/articulos");
+    invRef.doc(idDocumento).delete().then(function() {
+        console.log("Document successfully deleted!");
+        window.alert("Se ha eliminado el articulo, recarga para visualizar")
+    }).catch(function(error) {
+        console.error("Error removing document: ", error);
+        window.alert("No se ha podido borrar el elemento ERROR!")
+    });
+
+}
 
 
 var Page = {
@@ -39,7 +76,7 @@ var Page = {
 
         // Initialize page parts.
         Page.ArticleSell.init();
-       // Page.dummySearch();
+        // Page.dummySearch();
         Page.addModal();
         // Events
         Page.$window.on('load', function() { Page._onLoad(); });
@@ -52,10 +89,10 @@ var Page = {
      * Fires when the page is loaded.
      * @private
      */
-    _onLoad: function () {
+    _onLoad: function() {
         Page.showInventary();
         //const docRef= firestore.doc("sucursales/suc1") /// remember that in the path we gonna alternate betwen COLLECTION/DOCUMENT/COLLECTION/DOCUMENT and so on
-       // var invRef = firestore.collection("inventarios/inventario1/articulos");
+        // var invRef = firestore.collection("inventarios/inventario1/articulos");
 
     },
 
@@ -63,13 +100,13 @@ var Page = {
      * Fires when the page is resized.
      * @private
      */
-    _onResize: function() {  },
+    _onResize: function() {},
 
     /**
      * Fires on scrolling.
      * @private
      */
-    _onScroll: function() {  },
+    _onScroll: function() {},
 
     /**
      * Scroll to a section indicated by hash.
@@ -77,37 +114,36 @@ var Page = {
      * @param {number} scrollTime
      * @param {number} extraOffset
      */
-// region functions
-    loadAll: function(){
-        loadButtonAll.addEventListener("click", function(){
+    // region functions
+    loadAll: function() {
+        loadButtonAll.addEventListener("click", function() {
             var cont = 1
             invRef.get()
-                .then(function (doc) {
-                    doc.forEach(function (value){
+                .then(function(doc) {
+                    doc.forEach(function(value) {
                         const newPre = document.createElement('pre')
                         const newh2 = document.createElement('h2')
-                        newh2.innerText= "Articulo"+ (cont++) + " \n ------------------------- "
-                        newPre.innerHTML = JSON.stringify(value.data(), null , 2 )
+                        newh2.innerText = "Articulo" + (cont++) + " \n ------------------------- "
+                        newPre.innerHTML = JSON.stringify(value.data(), null, 2)
                         newPre.id = value.data().nombre
                         pretag.appendChild(newh2)
                         pretag.appendChild(newPre)
                     })
                 })
-                .catch(function (err) {
+                .catch(function(err) {
                     console.log("error", err)
                 })
         })
     },
 
-    loadQuery: function(){
-        loadButton6.addEventListener("click", function(){
-           // console.log("Entre a la consulta")
+    loadQuery: function() {
+        loadButton6.addEventListener("click", function() {
+            // console.log("Entre a la consulta")
             var cont = 1
 
-            var fields=[
-                {
-                    value:inputtxtnom.value,
-                    id:inputtxtnom.id
+            var fields = [{
+                    value: inputtxtnom.value,
+                    id: inputtxtnom.id
                 },
                 {
                     value: inputtxtcat.value,
@@ -118,37 +154,37 @@ var Page = {
                     id: inputtxtsubnom.id
                 },
                 {
-                    value:inputtxtsubcat.value,
-                    id:inputtxtsubcat.id
+                    value: inputtxtsubcat.value,
+                    id: inputtxtsubcat.id
                 },
                 {
-                    value:inputtxtmarca.value ,
-                    id:inputtxtmarca.id
+                    value: inputtxtmarca.value,
+                    id: inputtxtmarca.id
                 },
                 {
                     value: inputtxtuso.value,
-                    id:inputtxtuso.id
+                    id: inputtxtuso.id
                 },
                 {
-                    value:inputtxtpresent.value,
-                    id:inputtxtpresent.id
+                    value: inputtxtpresent.value,
+                    id: inputtxtpresent.id
                 }
             ]
 
             var query = invRef;
-            for(let i=0;i<fields.length;i++){
+            for (let i = 0; i < fields.length; i++) {
                 if (fields[i].value != "") {
-                    query = query.where(fields[i].id,'==',fields[i].value)
+                    query = query.where(fields[i].id, '==', fields[i].value)
                 }
             }
             query.get()
-                .then(function (doc){
-                    doc.forEach(function (value){
+                .then(function(doc) {
+                    doc.forEach(function(value) {
                         console.log(value.data())
                         const newPre = document.createElement('pre')
                         const newh2 = document.createElement('h2')
-                        newh2.innerText= "Articulo"+ (cont++) + " \n ------------------------- "
-                        newPre.innerHTML = JSON.stringify(value.data(), null , 2 )
+                        newh2.innerText = "Articulo" + (cont++) + " \n ------------------------- "
+                        newPre.innerHTML = JSON.stringify(value.data(), null, 2)
                         newPre.id = value.data().nombre
                         pretag.appendChild(newh2)
                         pretag.appendChild(newPre)
@@ -160,50 +196,50 @@ var Page = {
         });
     },
 
-    clearScreen: function(){
-        cleanbut.addEventListener("click", function(){
+    clearScreen: function() {
+        cleanbut.addEventListener("click", function() {
             pretag.innerHTML = "  "
         })
     },
 
-    saveQuery: function(){
+    saveQuery: function() {
 
-        saveButton6.addEventListener("click", function(){
+        saveButton6.addEventListener("click", function() {
             var invDocRef = firestore.doc("inventarios/inventario1/articulos/articulo4");
-            OutputHeader.innerHTML="Guardando articulo"
-            /// now we put our ref document to know where to save this shit out
+            OutputHeader.innerHTML = "Guardando articulo"
+                /// now we put our ref document to know where to save this shit out
             invDocRef.set({
-                nombre: inputtxtnom.value,
-                subnombre: inputtxtsubnom.value,
-                categoria: inputtxtcat.value,
-                id_art: 2,
-                subcategoria: inputtxtsubcat.value,
-                marca_lab: inputtxtmarca.value,
-                uso: inputtxtuso.value,
-                precio_publico: 40,
-                presentacion: inputtxtpresent.value,
-                stock: 100,
+                    nombre: inputtxtnom.value,
+                    subnombre: inputtxtsubnom.value,
+                    categoria: inputtxtcat.value,
+                    id_art: 2,
+                    subcategoria: inputtxtsubcat.value,
+                    marca_lab: inputtxtmarca.value,
+                    uso: inputtxtuso.value,
+                    precio_publico: 40,
+                    presentacion: inputtxtpresent.value,
+                    stock: 100,
 
-            }).then(function(){
-                console.log("articulo saved! :v")
-                OutputHeader.innerHTML="articulo saved! :v"
-            }).catch(function(err){
-                console.log("Got an error: ", err)
-                OutputHeader.innerHTML="Got an error: "
-            })
-            /// ready, that is going to replace my data in firesotre in my collection SAMPLES/SANDWICH DATA and if is not created is gonan to created it
-            /// set returns apromise so we can use as it with then and catch
+                }).then(function() {
+                    console.log("articulo saved! :v")
+                    OutputHeader.innerHTML = "articulo saved! :v"
+                }).catch(function(err) {
+                    console.log("Got an error: ", err)
+                    OutputHeader.innerHTML = "Got an error: "
+                })
+                /// ready, that is going to replace my data in firesotre in my collection SAMPLES/SANDWICH DATA and if is not created is gonan to created it
+                /// set returns apromise so we can use as it with then and catch
         });
     },
 
-    searchInput: function(){
-        radiocat.addEventListener("change", function(){
+    searchInput: function() {
+        radiocat.addEventListener("change", function() {
             invRef.get()
-                .then(function (doc) {
-                    doc.forEach(function (value){
+                .then(function(doc) {
+                    doc.forEach(function(value) {
                         var data = value.data().subcategoria;
-                        if(data != undefined ){
-                            if(value.data().categoria === radiocat.value){
+                        if (data != undefined) {
+                            if (value.data().categoria === radiocat.value) {
                                 const newOp = document.createElement('option')
                                 newOp.innerText = data
                                 newOp.id = value.data().nombre
@@ -213,45 +249,45 @@ var Page = {
                         }
                     })
                 })
-                .catch(function (err) {
+                .catch(function(err) {
                     console.log("error", err)
                 })
         })
 
-        clearselect.addEventListener("mouseover", function(){
-            selcat.innerHTML= " "
+        clearselect.addEventListener("mouseover", function() {
+            selcat.innerHTML = " "
         })
     },
-//endregion
+    //endregion
 
-    dummySearch: function(){
+    dummySearch: function() {
 
-       var searchBtn  = document.querySelector ("#searchButton");
-       var inputName = document.querySelector("#name");
+        var searchBtn = document.querySelector("#searchButton");
+        var inputName = document.querySelector("#name");
 
-       var catSelection = document.querySelector("#category");
+        var catSelection = document.querySelector("#category");
         var subSelection = document.querySelector("#subcategory");
-        var prods=document.querySelectorAll('.article');
-        searchBtn.addEventListener("click", function(){
+        var prods = document.querySelectorAll('.article');
+        searchBtn.addEventListener("click", function() {
             [].forEach.call(prods, function(prod) {
-                var name=prod.getAttribute('data-name');
-                var cat =prod.getAttribute('data-cat');
-                var sub =prod.getAttribute('data-sub');
+                var name = prod.getAttribute('data-name');
+                var cat = prod.getAttribute('data-cat');
+                var sub = prod.getAttribute('data-sub');
 
-                if(inputName.value == ""&& catSelection.value== " " && subSelection.value==" "){ // ya se que este bien podia ir con el otro if pero me dio weba moverlo >:v
+                if (inputName.value == "" && catSelection.value == " " && subSelection.value == " ") { // ya se que este bien podia ir con el otro if pero me dio weba moverlo >:v
                     prod.classList.remove('hide');
                     prod.classList.add('show');
-                }else{
-                    if((inputName.value == name && catSelection.value== " " && subSelection.value==" ")||
-                        (inputName.value == name  && catSelection.value == cat && subSelection.value == sub) ||
-                         (inputName.value == ""  && catSelection.value == cat && subSelection.value == " ")||
-                          (inputName.value == ""  && catSelection.value == " " && subSelection.value == sub)||
-                           (inputName.value == name  && catSelection.value == cat && subSelection.value == " ")||
-                            (inputName.value == name  && catSelection.value == " " && subSelection.value == sub)||
-                             (inputName.value == ""  && catSelection.value == cat && subSelection.value == sub)){
-                                 prod.classList.remove('hide');
-                                 prod.classList.add('show');
-                    }else {
+                } else {
+                    if ((inputName.value == name && catSelection.value == " " && subSelection.value == " ") ||
+                        (inputName.value == name && catSelection.value == cat && subSelection.value == sub) ||
+                        (inputName.value == "" && catSelection.value == cat && subSelection.value == " ") ||
+                        (inputName.value == "" && catSelection.value == " " && subSelection.value == sub) ||
+                        (inputName.value == name && catSelection.value == cat && subSelection.value == " ") ||
+                        (inputName.value == name && catSelection.value == " " && subSelection.value == sub) ||
+                        (inputName.value == "" && catSelection.value == cat && subSelection.value == sub)) {
+                        prod.classList.remove('hide');
+                        prod.classList.add('show');
+                    } else {
 
                         prod.classList.remove('show');
                         prod.classList.add('hide');
@@ -264,10 +300,10 @@ var Page = {
 
     },
 
-    addModal: function(){
+    addModal: function() {
 
-        var addBtn= document.querySelector(".add-btn");
-        addBtn.addEventListener('click',function(ev){
+        var addBtn = document.querySelector(".add-btn");
+        addBtn.addEventListener('click', function(ev) {
             ev.preventDefault();
             let settings = {
                 avoidClose: false,
@@ -276,20 +312,20 @@ var Page = {
             };
             Page.$modalAdd = new pl.Modal(settings);
 
-            var content= document.querySelector('.modal-agregar');
-            var target= content.cloneNode(true);
+            var content = document.querySelector('.modal-agregar');
+            var target = content.cloneNode(true);
 
             Page.$modalAdd.opened.add(() => {
                 Page.newItem(target, Page.$modalAdd);
 
-        });
+            });
 
             Page.$modalAdd.open(target);
 
         });
     },
 
-    newItem: function(target, modal){
+    newItem: function(target, modal) {
         var addbtn = target.querySelector("#savedesu");
         var cancelbtn = target.querySelector("#canceldesu");
         const OutputHeader = target.querySelector("#tituloAgregado")
@@ -304,10 +340,10 @@ var Page = {
         const inputtxtcant = target.querySelector("#cant")
         const inputtxtunidad = target.querySelector("#unidad")
         const inputtxtpeso = target.querySelector("#peso")
-        const inputtxtprecio =target.querySelector("#precio")
-        const inputtxtsemi =target.querySelector("#semi")
-        const inputtxtmayoreo =target.querySelector("#mayoreo")
-        const inputtxtiva =target.querySelector("#iva")
+        const inputtxtprecio = target.querySelector("#precio")
+        const inputtxtsemi = target.querySelector("#semi")
+        const inputtxtmayoreo = target.querySelector("#mayoreo")
+        const inputtxtiva = target.querySelector("#iva")
         const inputtxtart = target.querySelector("#idart")
 
 
@@ -316,45 +352,45 @@ var Page = {
 
             /// now we put our ref document to know where to save this shit out
             invDocRef.add({
-                nombre: inputtxtnom.value,
-                subnombre: inputtxtsubnom.value,
-                categoria: inputtxtcat.value,
-                id_art: inputtxtart.value,
-                subcategoria: inputtxtsubcat.value,
-                marca_lab: inputtxtmarca.value,
-                uso: inputtxtuso.value,
-                presentacion: inputtxtpresent.value,
-                stock: inputtxtcant.value,
-                descripcion: inputtxtdesc.value,
-                unidad: inputtxtunidad.value,
-                peso: inputtxtpeso.value,
-                precio_publico: inputtxtprecio.value,
-                precio_mayoreo: inputtxtmayoreo.value,
-                precio_semi: inputtxtsemi.value,
-                iva: inputtxtiva.value
+                    nombre: inputtxtnom.value,
+                    subnombre: inputtxtsubnom.value,
+                    categoria: inputtxtcat.value,
+                    id_art: inputtxtart.value,
+                    subcategoria: inputtxtsubcat.value,
+                    marca_lab: inputtxtmarca.value,
+                    uso: inputtxtuso.value,
+                    presentacion: inputtxtpresent.value,
+                    stock: inputtxtcant.value,
+                    descripcion: inputtxtdesc.value,
+                    unidad: inputtxtunidad.value,
+                    peso: inputtxtpeso.value,
+                    precio_publico: inputtxtprecio.value,
+                    precio_mayoreo: inputtxtmayoreo.value,
+                    precio_semi: inputtxtsemi.value,
+                    iva: inputtxtiva.value
 
 
-            }).then(function() {
-                console.log("articulo saved!")
-                console.log(OutputHeader);
-                OutputHeader.innerHTML = "Articulo guardado correctamente"
-                setTimeout(function(){
-                    OutputHeader.innerHTML = "Agregar Articulo"
-                },2100);
+                }).then(function() {
+                    console.log("articulo saved!")
+                    console.log(OutputHeader);
+                    OutputHeader.innerHTML = "Articulo guardado correctamente"
+                    setTimeout(function() {
+                        OutputHeader.innerHTML = "Agregar Articulo"
+                    }, 2100);
 
-            }).catch(function(err) {
-                console.log("Got an error: ", err)
-                OutputHeader.innerHTML = "Got an error: "
-            })
-            /// ready, that is going to replace my data in firesotre in my collection SAMPLES/SANDWICH DATA and if is not created is gonan to created it
-            /// set returns apromise so we can use as it with then and catch
+                }).catch(function(err) {
+                    console.log("Got an error: ", err)
+                    OutputHeader.innerHTML = "Got an error: "
+                })
+                /// ready, that is going to replace my data in firesotre in my collection SAMPLES/SANDWICH DATA and if is not created is gonan to created it
+                /// set returns apromise so we can use as it with then and catch
         });
-        cancelbtn.addEventListener('click',function(){
+        cancelbtn.addEventListener('click', function() {
 
             modal.close();
         });
     },
-    showInventary: function(){
+    showInventary: function() {
 
         const tabla = document.getElementById("tableishon");
 
@@ -381,21 +417,21 @@ var Page = {
                     const tdc13 = document.createElement('td');
                     const tdc14 = document.createElement('td');
 
-                    thc.innerHTML=value.data().id_art;
-                    tdc1.innerHTML=value.data().nombre;
-                    tdc2.innerHTML=value.data().categoria;
-                    tdc3.innerHTML=value.data().subcategoria;
-                    tdc4.innerHTML=value.data().marca_lab;
-                    tdc5.innerHTML=value.data().descripcion;
-                    tdc6.innerHTML=value.data().presentacion;
-                    tdc7.innerHTML=value.data().stock;
-                    tdc8.innerHTML=value.data().unidad;
-                    tdc9.innerHTML=value.data().peso;
-                    tdc10.innerHTML=value.data().uso;
-                    tdc11.innerHTML=value.data().precio_publico;
-                    tdc12.innerHTML=value.data().precio_semi;
-                    tdc13.innerHTML=value.data().precio_mayoreo;
-                    tdc14.innerHTML= "16%";
+                    thc.innerHTML = value.data().id_art;
+                    tdc1.innerHTML = value.data().nombre;
+                    tdc2.innerHTML = value.data().categoria;
+                    tdc3.innerHTML = value.data().subcategoria;
+                    tdc4.innerHTML = value.data().marca_lab;
+                    tdc5.innerHTML = value.data().descripcion;
+                    tdc6.innerHTML = value.data().presentacion;
+                    tdc7.innerHTML = value.data().stock;
+                    tdc8.innerHTML = value.data().unidad;
+                    tdc9.innerHTML = value.data().peso;
+                    tdc10.innerHTML = value.data().uso;
+                    tdc11.innerHTML = value.data().precio_publico;
+                    tdc12.innerHTML = value.data().precio_semi;
+                    tdc13.innerHTML = value.data().precio_mayoreo;
+                    tdc14.innerHTML = "16%";
 
                     trc.appendChild(thc);
                     trc.appendChild(tdc1);
@@ -413,7 +449,20 @@ var Page = {
                     trc.appendChild(tdc13);
                     trc.appendChild(tdc14);
 
+                    const editbtn = document.createElement('button');
+                    const delbtn = document.createElement('button');
+                    delbtn.innerHTML = "Borrar"
+                    editbtn.innerHTML = "Editar"
+                    let aid = value.data().id_art
+                    delbtn.addEventListener("click", function() {
+                        buscarDoc(aid)
+                    })
+                    editbtn.addEventListener("click", function() {
+                        editarDoc(aid)
+                    })
 
+                    trc.appendChild(editbtn)
+                    trc.appendChild(delbtn)
                     tabla.appendChild(trc);
                 })
             })
@@ -424,34 +473,34 @@ var Page = {
 
 
 
-    ArticleSell :{
+    ArticleSell: {
         items: null,
         item: null,
         itemPrice: null,
-        totalPrice:null,
-        init: function(){
-            var self= this;
+        totalPrice: null,
+        init: function() {
+            var self = this;
 
-            var $unidad=$('.s-unidad');
-            var $unidades=$('.s-unidad .s-unit ');
-            $unidad.on('click', function(){
-                var total= 0;
+            var $unidad = $('.s-unidad');
+            var $unidades = $('.s-unidad .s-unit ');
+            $unidad.on('click', function() {
+                var total = 0;
                 this.items = $('.selling .articles');
                 this.item = this.items.find('.item');
-                    $(this.item).each(function () {
-                        this.price = $(this).find('.price');
-                        this.unidad = $(this).find('.s-unit:selected');
-                        var $price = this.price.attr('data-value');
-                        var unit = this.unidad.val();
-                        var partial = parseFloat($price);
+                $(this.item).each(function() {
+                    this.price = $(this).find('.price');
+                    this.unidad = $(this).find('.s-unit:selected');
+                    var $price = this.price.attr('data-value');
+                    var unit = this.unidad.val();
+                    var partial = parseFloat($price);
 
-                        partial = partial * unit;
-                        total = total + partial;
+                    partial = partial * unit;
+                    total = total + partial;
 
-                        this.totalPrice = $('.payment .total .prod-price');
-                        console.log(this.totalPrice);
-                        this.totalPrice.text("$" + total + ".00");
-                    });
+                    this.totalPrice = $('.payment .total .prod-price');
+                    console.log(this.totalPrice);
+                    this.totalPrice.text("$" + total + ".00");
+                });
 
             });
         }
