@@ -72,6 +72,23 @@ body{
     display:none;
 }
 
+.inventario button.editBtn{
+    text-decoration: none;
+    background-color: #d9c756;
+    color: #fff;
+    border: 1px solid #9e8c17;
+    margin-right: 10px;
+    border-radius: 3px;
+}
+.inventario button.deleteBtn{
+    text-decoration: none;
+    background-color: #dc3545;
+    color: #fff;
+    border: 1px solid #9e3b17;
+    margin-right: 10px;
+    border-radius: 3px;
+}
+
 .modal-agregar{
     width: 100%;
     height: 380px;
@@ -116,3 +133,4 @@ body{
     border-radius: 5px;
     width: 110px;
 }
+

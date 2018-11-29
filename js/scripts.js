@@ -45,18 +45,6 @@ function buscarDoc(aid) {
 
 }
 
-function borrarDoc(idDocumento) {
-    var invRef = firestore.collection("inventarios/inventario1/articulos");
-    invRef.doc(idDocumento).delete().then(function() {
-        console.log("Document successfully deleted!");
-        window.alert("Se ha eliminado el articulo, recarga para visualizar")
-
-    }).catch(function(error) {
-        console.error("Error removing document: ", error);
-        window.alert("No se ha podido borrar el elemento ERROR!")
-    });
-
-}
 
 
 ///TODO:  Intentar que sea tiempo real, la consulta ya esta en terminos de snapshot por ende se deberia ver el cambio tras eliminar
@@ -86,6 +74,7 @@ var Page = {
         // Initialize page parts.
         Page.ArticleSell.init();
         // Page.dummySearch();
+
         Page.addModal();
         // Events
         Page.$window.on('load', function() { Page._onLoad(); });
@@ -100,8 +89,6 @@ var Page = {
      */
     _onLoad: function() {
         Page.showInventary();
-
-
     },
 
     /**
@@ -109,13 +96,11 @@ var Page = {
      * @private
      */
     _onResize: function() {},
-
     /**
      * Fires on scrolling.
      * @private
      */
     _onScroll: function() {},
-
     /**
      * Scroll to a section indicated by hash.
      * @param {string} hash
@@ -143,7 +128,6 @@ var Page = {
                 })
         })
     },
-
     loadQuery: function() {
         loadButton6.addEventListener("click", function() {
             // console.log("Entre a la consulta")
@@ -203,13 +187,11 @@ var Page = {
 
         });
     },
-
     clearScreen: function() {
         cleanbut.addEventListener("click", function() {
             pretag.innerHTML = "  "
         })
     },
-
     saveQuery: function() {
 
         saveButton6.addEventListener("click", function() {
@@ -399,30 +381,51 @@ var Page = {
         });
     },
     showInventary: function() {
-        const tabla = document.getElementById("tableishon");
+        var tabla = document.getElementById("tableishon");
 
 
         var invRef = firestore.collection("inventarios/inventario1/articulos");
         var cont = 1;
-        invRef.get()
-            .then((snap) => {
+        invRef.onSnapshot((snap) => {tabla.innerHTML='';
                 snap.forEach((value) => {
-                    const trc = document.createElement('tr');
-                    const thc = document.createElement('th');
-                    const tdc1 = document.createElement('td');
-                    const tdc2 = document.createElement('td');
-                    const tdc3 = document.createElement('td');
-                    const tdc4 = document.createElement('td');
-                    const tdc5 = document.createElement('td');
-                    const tdc6 = document.createElement('td');
-                    const tdc7 = document.createElement('td');
-                    const tdc8 = document.createElement('td');
-                    const tdc9 = document.createElement('td');
-                    const tdc10 = document.createElement('td');
-                    const tdc11 = document.createElement('td');
-                    const tdc12 = document.createElement('td');
-                    const tdc13 = document.createElement('td');
-                    const tdc14 = document.createElement('td');
+                      const trc = document.createElement('tr');
+                      const thc = document.createElement('th');
+                      const tdc1 = document.createElement('td');
+                      const tdc2 = document.createElement('td');
+                      const tdc3 = document.createElement('td');
+                      const tdc4 = document.createElement('td');
+                      const tdc5 = document.createElement('td');
+                      const tdc6 = document.createElement('td');
+                      const tdc7 = document.createElement('td');
+                      const tdc8 = document.createElement('td');
+                      const tdc9 = document.createElement('td');
+                      const tdc10 = document.createElement('td');
+                      const tdc11 = document.createElement('td');
+                      const tdc12 = document.createElement('td');
+                      const tdc13 = document.createElement('td');
+                      const tdc14 = document.createElement('td');
+                      const buttons=document.createElement('td');
+                            buttons.style.display = "flex";
+
+         /*           tabla.innerHTML+=`<tr>
+                                      <th scope="row">${value.data().id_art}<th>
+                                      <td contenteditable="true">${value.data().nombre}</td>
+                                      <td contenteditable="true">${value.data().categoria}</td>
+                                      <td contenteditable="true">${value.data().subcategoria}</td>
+                                      <td contenteditable="true">${value.data().marca_lab}</td>
+                                      <td contenteditable="true">${value.data().descripcion}</td>
+                                      <td contenteditable="true">${value.data().presentacion}</td>
+                                      <td contenteditable="true">${value.data().stock}</td>
+                                      <td contenteditable="true">${value.data().unidad}</td>
+                                      <td contenteditable="true">${value.data().peso}</td>
+                                      <td contenteditable="true">${value.data().uso}</td>
+                                      <td contenteditable="true">${value.data().precio_publico}</td>
+                                      <td contenteditable="true">${value.data().precio_semi}</td>
+                                      <td contenteditable="true">${value.data().precio_mayoreo}</td>
+                                      <td contenteditable="true">${value.data().iva}</td>
+                                      <td><button class="editBtn">Editar</button><button class="deleteBtn">Borrar</button></td>
+                                      </tr>              
+`*/
 
                     thc.innerHTML = value.data().id_art;
                     tdc1.innerHTML = value.data().nombre;
@@ -456,21 +459,26 @@ var Page = {
                     trc.appendChild(tdc13);
                     trc.appendChild(tdc14);
 
+
                     const editbtn = document.createElement('button');
                     const delbtn = document.createElement('button');
+
                     delbtn.innerHTML = "Borrar"
                     editbtn.innerHTML = "Editar"
+                    delbtn.className+="deleteBtn"
+                    editbtn.className+="editBtn"
                         //let aid = value.data().id_art
                     delbtn.addEventListener("click", function() {
                         //buscarDoc(aid) solo cuando no es snap
-                        borrarDoc(value.id)
+                        Page.borrarDoc(value.id)
                     })
                     editbtn.addEventListener("click", function() {
                         editarDoc(aid)
-                    })
+                    });
 
-                    trc.appendChild(editbtn)
-                    trc.appendChild(delbtn)
+                    buttons.appendChild(editbtn);
+                    buttons.appendChild(delbtn);
+                    trc.appendChild(buttons);
                     tabla.appendChild(trc);
                 })
             })
@@ -479,7 +487,18 @@ var Page = {
             })
     },
 
+    borrarDoc: function(idDocumento) {
+    var invRef = firestore.collection("inventarios/inventario1/articulos");
+    invRef.doc(idDocumento).delete().then(function() {
+        console.log("Document successfully deleted!");
+        //window.alert("Se ha eliminado el articulo, recarga para visualizar")
 
+    }).catch(function(error) {
+        console.error("Error removing document: ", error);
+        window.alert("No se ha podido borrar el elemento ERROR!")
+    });
+
+},
 
     ArticleSell: {
         items: null,
