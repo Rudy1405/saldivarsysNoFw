@@ -50,7 +50,7 @@ function buscarDoc(aid) {
 ///TODO:  
 //  Validar que no se pueda agregar un producto si todo esta vacio, que de mensaje de error en OutpuHeader
 //  Limpiar elementos despues de haber dado click en agregar
-// evitar que iva siempre se guarde con %16
+//  Si hay undefined que se imprima como " "
 
 
 var Page = {
