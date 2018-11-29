@@ -47,6 +47,12 @@ function buscarDoc(aid) {
 
 
 
+<<<<<<< HEAD
+=======
+///TODO:  
+//  Validar que no se pueda agregar un producto si todo esta vacio, que de mensaje de error en OutpuHeader
+//  Limpiar elementos despues de haber dado click en agregar
+>>>>>>> e81a596f48b6a1b3953eb59947505b9a539c0cba
 
 
 var Page = {
@@ -336,46 +342,42 @@ var Page = {
         addbtn.addEventListener("click", function() {
             var invDocRef = firestore.collection("inventarios/inventario1/articulos/");
             var els = target.getElementsByClassName("features");
-            var band=true;
-            var cont=0;
-// Or
-            [].forEach.call(els, function (el) {
+            var band = true;
+            var cont = 0;
+            // Or
+            [].forEach.call(els, function(el) {
 
-              if(el.name == "idart"){
-                  if(el.value.length<3)
-                  {
-                      OutputHeader.style.color = "red"
-                      OutputHeader.style.fontSize= "20px"
-                      OutputHeader.innerHTML = "El Id Debe tener al menos 4 numeros"
-                      band=false;
-                 }
-              }
-                if(el.name == "nombre"){
-                    if(el.value=="")
-                    {
+                if (el.name == "idart") {
+                    if (el.value.length < 3) {
                         OutputHeader.style.color = "red"
-                        OutputHeader.style.fontSize= "20px"
+                        OutputHeader.style.fontSize = "20px"
+                        OutputHeader.innerHTML = "El Id Debe tener al menos 4 numeros"
+                        band = false;
+                    }
+                }
+                if (el.name == "nombre") {
+                    if (el.value == "") {
+                        OutputHeader.style.color = "red"
+                        OutputHeader.style.fontSize = "20px"
                         OutputHeader.innerHTML = "Por favor ingresa un nombre de articulo";
                         console.log("vacio");
-                        band=false;
+                        band = false;
                     }
                 }
 
-                if(el.value=="")
-                {
+                if (el.value == "") {
                     cont++;
                 }
 
             });
-            if(cont>=els.length)
-                {
-                    OutputHeader.style.color = "red"
-                    OutputHeader.style.fontSize= "20px"
-                    OutputHeader.innerHTML = "Error: Articulo vacío";
-                    band=false;
+            if (cont >= els.length) {
+                OutputHeader.style.color = "red"
+                OutputHeader.style.fontSize = "20px"
+                OutputHeader.innerHTML = "Error: Articulo vacío";
+                band = false;
             }
             /// now we put our ref document to know where to save this shit out
-            if(band){
+            if (band) {
                 invDocRef.add({
                     nombre: inputtxtnom.value,
                     subnombre: inputtxtsubnom.value,
@@ -398,19 +400,19 @@ var Page = {
                 }).then(function() {
                     console.log("articulo saved!")
                     console.log(OutputHeader);
-                    OutputHeader.style.fontSize= "20px"
+                    OutputHeader.style.fontSize = "20px"
                     OutputHeader.style.color = "red"
                     OutputHeader.innerHTML = "Articulo guardado correctamente"
                     var elems = target.getElementsByClassName("features");
-                    [].forEach.call(elems, function (el) {
-                        el.value="";
+                    [].forEach.call(elems, function(el) {
+                        el.value = "";
 
                     });
 
                     setTimeout(function() {
                         OutputHeader.style.color = "black"
                         OutputHeader.innerHTML = "Agregar Articulo"
-                        //Page.limpiaAgregar()
+                            //Page.limpiaAgregar()
                     }, 2100);
 
                 }).catch(function(err) {
@@ -419,8 +421,8 @@ var Page = {
                 })
             }
 
-                /// ready, that is going to replace my data in firesotre in my collection SAMPLES/SANDWICH DATA and if is not created is gonan to created it
-                /// set returns apromise so we can use as it with then and catch
+            /// ready, that is going to replace my data in firesotre in my collection SAMPLES/SANDWICH DATA and if is not created is gonan to created it
+            /// set returns apromise so we can use as it with then and catch
         });
         cancelbtn.addEventListener('click', function() {
 
@@ -478,21 +480,52 @@ var Page = {
                 thc.innerHTML = value.data().id_art;
                 tdc1.innerHTML = value.data().nombre;
 
-                    tdc2.innerHTML = value.data().categoria;
-                    if(value.data().categoria=='undefined')
-                        tdc2.innerHTML="";
-                    tdc3.innerHTML = value.data().subcategoria;
-                    tdc4.innerHTML = value.data().marca_lab;
-                    tdc5.innerHTML = value.data().descripcion;
-                    tdc6.innerHTML = value.data().presentacion;
-                    tdc7.innerHTML = value.data().stock;
-                    tdc8.innerHTML = value.data().unidad;
-                    tdc9.innerHTML = value.data().peso;
-                    tdc10.innerHTML = value.data().uso;
-                    tdc11.innerHTML = value.data().precio_publico;
-                    tdc12.innerHTML = value.data().precio_semi;
-                    tdc13.innerHTML = value.data().precio_mayoreo;
-                    tdc14.innerHTML = value.data().iva;
+                tdc2.innerHTML = value.data().categoria;
+                if (value.data().categoria == 'undefined')
+                    tdc2.innerHTML = "";
+                tdc3.innerHTML = value.data().subcategoria;
+                if (value.data().subcategoria == 'undefined')
+                    tdc3.innerHTML = "";
+
+                tdc4.innerHTML = value.data().marca_lab;
+                if (value.data().marca_lab == 'undefined')
+                    tdc4.innerHTML = "";
+                tdc5.innerHTML = value.data().descripcion;
+                if (value.data().descripcion == 'undefined')
+                    tdc5.innerHTML = "";
+
+                if (value.data().categoria == 'undefined')
+                    tdc2.innerHTML = "";
+
+                tdc6.innerHTML = value.data().presentacion;
+
+                tdc7.innerHTML = value.data().stock;
+                tdc7.id = "stock_" + value.data().id_art;
+                tdc7.contentEditable = "true";
+                tdc7.style.color = "#28a745"
+
+                tdc8.innerHTML = value.data().unidad;
+
+                tdc9.innerHTML = value.data().peso;
+
+                tdc10.innerHTML = value.data().uso;
+
+                tdc11.innerHTML = value.data().precio_publico;
+                tdc11.id = "precioP_" + value.data().id_art;
+                tdc11.contentEditable = "true";
+                tdc11.style.color = "#28a745"
+
+                tdc12.innerHTML = value.data().precio_semi;
+                tdc12.id = "precioS_" + value.data().id_art;
+                tdc12.contentEditable = "true";
+                tdc12.style.color = "#28a745"
+
+                tdc13.innerHTML = value.data().precio_mayoreo;
+                tdc13.id = "precioM_" + value.data().id_art;
+                tdc13.contentEditable = "true";
+                tdc13.style.color = "#28a745"
+
+                tdc14.innerHTML = value.data().iva;
 
                 trc.appendChild(thc);
                 trc.appendChild(tdc1);
@@ -509,7 +542,7 @@ var Page = {
                 trc.appendChild(tdc12);
                 trc.appendChild(tdc13);
                 trc.appendChild(tdc14);
-
+                trc.id = "row_" + value.data().id_art;
 
                 const editbtn = document.createElement('button');
                 const delbtn = document.createElement('button');
@@ -524,7 +557,7 @@ var Page = {
                     Page.borrarDoc(value.id)
                 })
                 editbtn.addEventListener("click", function() {
-                    editarDoc(aid)
+                    Page.editarDoc(value.id, tdc7.id, tdc11.id, tdc12.id, tdc13.id, trc.id)
                 });
 
                 buttons.appendChild(editbtn);
@@ -533,6 +566,41 @@ var Page = {
                 tabla.appendChild(trc);
             })
         })
+    },
+
+    editarDoc: function(idDocumento, idTd1, idTd2, idTd3, idTd4, idFila) {
+        /// se obtiene la referencia de que articulo vamos a actualizar 
+        var articuloRef = firestore.collection("inventarios/inventario1/articulos").doc(idDocumento);
+        //obtenemos los ID de las cols de la tabla que tiene los elementos editables
+
+        const stockCol = document.getElementById(idTd1)
+        const ppCol = document.getElementById(idTd2)
+        const psCol = document.getElementById(idTd3)
+        const pmCol = document.getElementById(idTd4)
+
+
+        // Set los valores qeu contienen los tags en ese momento ahora en la bd
+        return articuloRef.update({
+                stock: stockCol.innerHTML,
+                precio_publico: ppCol.innerHTML,
+                precio_mayoreo: pmCol.innerHTML,
+                precio_semi: psCol.innerHTML
+            })
+            .then(function() {
+                console.log("Document successfully updated! ", idFila)
+                    //row.style.backgroundColor = "#26a60066"
+                const rowland = document.getElementById(idFila)
+                rowland.style.backgroundColor = "#26a60066"
+                setTimeout(function() {
+                    rowland.style.backgroundColor = ""
+                }, 800);
+
+            })
+            .catch(function(error) {
+                // The document probably doesn't exist.
+                console.error("Error updating document: ", error);
+            });
+
     },
 
     borrarDoc: function(idDocumento) {
