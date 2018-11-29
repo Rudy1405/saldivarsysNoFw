@@ -110,12 +110,12 @@ body{
     width: 100%;
 }
 
-.modal-agregar .content input{
+.modal-agregar .form-content input{
     margin-bottom: 10px;
     width: 95%;
 }
 
-.modal-agregar .content .buttons
+.modal-agregar .form-content .buttons
 {
     width: 100%;
     text-align: center;
@@ -123,7 +123,7 @@ body{
 
 }
 
-.modal-agregar .content .buttons .ad-btn
+.modal-agregar .form-content .buttons .ad-btn
 {
     text-decoration: none;
     background-color: #6bb741;

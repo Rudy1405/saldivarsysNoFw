@@ -307,6 +307,7 @@ var Page = {
             Page.$modalAdd.opened.add(() => {
                 Page.newItem(target, Page.$modalAdd);
 
+
             });
 
             Page.$modalAdd.open(target);
@@ -338,9 +339,48 @@ var Page = {
 
         addbtn.addEventListener("click", function() {
             var invDocRef = firestore.collection("inventarios/inventario1/articulos/");
+            var els = target.getElementsByClassName("features");
+            var band=true;
+            var cont=0;
+// Or
+            [].forEach.call(els, function (el) {
 
+              if(el.name == "idart"){
+                  if(el.value.length<3)
+                  {
+                      OutputHeader.style.color = "red"
+                      OutputHeader.style.fontSize= "20px"
+                      OutputHeader.innerHTML = "El Id Debe tener al menos 4 numeros"
+                      band=false;
+                 }
+              }
+                if(el.name == "nombre"){
+                    if(el.value=="")
+                    {
+                        OutputHeader.style.color = "red"
+                        OutputHeader.style.fontSize= "20px"
+                        OutputHeader.innerHTML = "Por favor ingresa un nombre de articulo";
+                        console.log("vacio");
+                        band=false;
+                    }
+                }
+
+                if(el.value=="")
+                {
+                    cont++;
+                }
+
+            });
+            if(cont>=els.length)
+                {
+                    OutputHeader.style.color = "red"
+                    OutputHeader.style.fontSize= "20px"
+                    OutputHeader.innerHTML = "Error: Articulo vacío";
+                    band=false;
+            }
             /// now we put our ref document to know where to save this shit out
-            invDocRef.add({
+            if(band){
+                invDocRef.add({
                     nombre: inputtxtnom.value,
                     subnombre: inputtxtsubnom.value,
                     categoria: inputtxtcat.value,
@@ -362,19 +402,27 @@ var Page = {
                 }).then(function() {
                     console.log("articulo saved!")
                     console.log(OutputHeader);
+                    OutputHeader.style.fontSize= "20px"
                     OutputHeader.style.color = "red"
                     OutputHeader.innerHTML = "Articulo guardado correctamente"
+                    var elems = target.getElementsByClassName("features");
+                    [].forEach.call(elems, function (el) {
+                        el.value="";
+
+                    });
 
                     setTimeout(function() {
                         OutputHeader.style.color = "black"
                         OutputHeader.innerHTML = "Agregar Articulo"
-                            //Page.limpiaAgregar()
+                        //Page.limpiaAgregar()
                     }, 2100);
 
                 }).catch(function(err) {
                     console.log("Got an error: ", err)
                     OutputHeader.innerHTML = "Got an error: "
                 })
+            }
+
                 /// ready, that is going to replace my data in firesotre in my collection SAMPLES/SANDWICH DATA and if is not created is gonan to created it
                 /// set returns apromise so we can use as it with then and catch
         });
@@ -433,19 +481,36 @@ var Page = {
 
                 thc.innerHTML = value.data().id_art;
                 tdc1.innerHTML = value.data().nombre;
-                tdc2.innerHTML = value.data().categoria;
-                tdc3.innerHTML = value.data().subcategoria;
-                tdc4.innerHTML = value.data().marca_lab;
-                tdc5.innerHTML = value.data().descripcion;
-                tdc6.innerHTML = value.data().presentacion;
-                tdc7.innerHTML = value.data().stock;
-                tdc8.innerHTML = value.data().unidad;
-                tdc9.innerHTML = value.data().peso;
-                tdc10.innerHTML = value.data().uso;
-                tdc11.innerHTML = value.data().precio_publico;
-                tdc12.innerHTML = value.data().precio_semi;
-                tdc13.innerHTML = value.data().precio_mayoreo;
-                tdc14.innerHTML = value.data().iva;
+
+                    tdc2.innerHTML = value.data().categoria;
+                    if(value.data().categoria=='undefined')
+                        tdc2.innerHTML="";
+                    tdc3.innerHTML = value.data().subcategoria;
+                    if(value.data().subcategoria=='undefined')
+                        tdc3.innerHTML="";
+
+                    tdc4.innerHTML = value.data().marca_lab;
+                    if(value.data().marca_lab=='undefined')
+                        tdc4.innerHTML="";
+                    tdc5.innerHTML = value.data().descripcion;
+                     if(value.data().descripcion=='undefined')
+                         tdc5.innerHTML="";
+
+                    if(value.data().categoria=='undefined')
+                        tdc2.innerHTML="";
+
+                    tdc6.innerHTML = value.data().presentacion;
+
+                    tdc7.innerHTML = value.data().stock;
+
+                    tdc8.innerHTML = value.data().unidad;
+
+                    tdc9.innerHTML = value.data().peso;
+                    tdc10.innerHTML = value.data().uso;
+                    tdc11.innerHTML = value.data().precio_publico;
+                    tdc12.innerHTML = value.data().precio_semi;
+                    tdc13.innerHTML = value.data().precio_mayoreo;
+                    tdc14.innerHTML = value.data().iva;
 
                 trc.appendChild(thc);
                 trc.appendChild(tdc1);
@@ -571,6 +636,10 @@ var Page = {
             });
         }
     }
+    /**
+     * Contact
+     */
+
 
 };
 
