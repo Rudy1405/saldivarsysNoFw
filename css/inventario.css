@@ -115,6 +115,7 @@ body{
     width: 95%;
 }
 
+
 .modal-agregar .form-content .buttons
 {
     width: 100%;
@@ -123,7 +124,7 @@ body{
 
 }
 
-.modal-agregar .form-content .buttons .ad-btn
+.modal-agregar .form-content .buttons .agregar-btn
 {
     text-decoration: none;
     background-color: #6bb741;
