@@ -47,10 +47,6 @@ function buscarDoc(aid) {
 
 
 
-///TODO:  
-//  Validar que no se pueda agregar un producto si todo esta vacio, que de mensaje de error en OutpuHeader
-//  Limpiar elementos despues de haber dado click en agregar
-//  Si hay undefined que se imprima como " "
 
 
 var Page = {
@@ -486,25 +482,11 @@ var Page = {
                     if(value.data().categoria=='undefined')
                         tdc2.innerHTML="";
                     tdc3.innerHTML = value.data().subcategoria;
-                    if(value.data().subcategoria=='undefined')
-                        tdc3.innerHTML="";
-
                     tdc4.innerHTML = value.data().marca_lab;
-                    if(value.data().marca_lab=='undefined')
-                        tdc4.innerHTML="";
                     tdc5.innerHTML = value.data().descripcion;
-                     if(value.data().descripcion=='undefined')
-                         tdc5.innerHTML="";
-
-                    if(value.data().categoria=='undefined')
-                        tdc2.innerHTML="";
-
                     tdc6.innerHTML = value.data().presentacion;
-
                     tdc7.innerHTML = value.data().stock;
-
                     tdc8.innerHTML = value.data().unidad;
-
                     tdc9.innerHTML = value.data().peso;
                     tdc10.innerHTML = value.data().uso;
                     tdc11.innerHTML = value.data().precio_publico;
