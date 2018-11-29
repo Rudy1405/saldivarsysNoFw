@@ -47,11 +47,10 @@ function buscarDoc(aid) {
 
 
 
-///TODO:  Intentar que sea tiempo real, la consulta ya esta en terminos de snapshot por ende se deberia ver el cambio tras eliminar
-///       sin la neesidad de refrescar la pestana, ver porque, no hacer fix de que se refresque por medio de funcion, usar nativo para evitar costos grandes
-////      Poner el save articulo en terminos de snap ara qeu se pueda ver el cambio
-////      Quitar articulos dummy del HTML
-////      El mensaje de que sea a guardado el articulo ponerlo de color diferente para que se note que se hizo algo. ejemplo https://www.youtube.com/watch?v=AACc80JV1sY&list=PLPl81lqbj-4JiR1Cio6xEygCZDmZmDUWI&index=14
+///TODO:  
+//  Validar que no se pueda agregar un producto si todo esta vacio, que de mensaje de error en OutpuHeader
+//  Limpiar elementos despues de haber dado click en agregar
+// evitar que iva siempre se guarde con %16
 
 
 var Page = {
@@ -363,9 +362,13 @@ var Page = {
                 }).then(function() {
                     console.log("articulo saved!")
                     console.log(OutputHeader);
+                    OutputHeader.style.color = "red"
                     OutputHeader.innerHTML = "Articulo guardado correctamente"
+
                     setTimeout(function() {
+                        OutputHeader.style.color = "black"
                         OutputHeader.innerHTML = "Agregar Articulo"
+                            //Page.limpiaAgregar()
                     }, 2100);
 
                 }).catch(function(err) {
@@ -386,28 +389,29 @@ var Page = {
 
         var invRef = firestore.collection("inventarios/inventario1/articulos");
         var cont = 1;
-        invRef.onSnapshot((snap) => {tabla.innerHTML='';
-                snap.forEach((value) => {
-                      const trc = document.createElement('tr');
-                      const thc = document.createElement('th');
-                      const tdc1 = document.createElement('td');
-                      const tdc2 = document.createElement('td');
-                      const tdc3 = document.createElement('td');
-                      const tdc4 = document.createElement('td');
-                      const tdc5 = document.createElement('td');
-                      const tdc6 = document.createElement('td');
-                      const tdc7 = document.createElement('td');
-                      const tdc8 = document.createElement('td');
-                      const tdc9 = document.createElement('td');
-                      const tdc10 = document.createElement('td');
-                      const tdc11 = document.createElement('td');
-                      const tdc12 = document.createElement('td');
-                      const tdc13 = document.createElement('td');
-                      const tdc14 = document.createElement('td');
-                      const buttons=document.createElement('td');
-                            buttons.style.display = "flex";
+        invRef.onSnapshot((snap) => {
+            tabla.innerHTML = '';
+            snap.forEach((value) => {
+                const trc = document.createElement('tr');
+                const thc = document.createElement('th');
+                const tdc1 = document.createElement('td');
+                const tdc2 = document.createElement('td');
+                const tdc3 = document.createElement('td');
+                const tdc4 = document.createElement('td');
+                const tdc5 = document.createElement('td');
+                const tdc6 = document.createElement('td');
+                const tdc7 = document.createElement('td');
+                const tdc8 = document.createElement('td');
+                const tdc9 = document.createElement('td');
+                const tdc10 = document.createElement('td');
+                const tdc11 = document.createElement('td');
+                const tdc12 = document.createElement('td');
+                const tdc13 = document.createElement('td');
+                const tdc14 = document.createElement('td');
+                const buttons = document.createElement('td');
+                buttons.style.display = "flex";
 
-         /*           tabla.innerHTML+=`<tr>
+                /*           tabla.innerHTML+=`<tr>
                                       <th scope="row">${value.data().id_art}<th>
                                       <td contenteditable="true">${value.data().nombre}</td>
                                       <td contenteditable="true">${value.data().categoria}</td>
@@ -427,78 +431,113 @@ var Page = {
                                       </tr>              
 `*/
 
-                    thc.innerHTML = value.data().id_art;
-                    tdc1.innerHTML = value.data().nombre;
-                    tdc2.innerHTML = value.data().categoria;
-                    tdc3.innerHTML = value.data().subcategoria;
-                    tdc4.innerHTML = value.data().marca_lab;
-                    tdc5.innerHTML = value.data().descripcion;
-                    tdc6.innerHTML = value.data().presentacion;
-                    tdc7.innerHTML = value.data().stock;
-                    tdc8.innerHTML = value.data().unidad;
-                    tdc9.innerHTML = value.data().peso;
-                    tdc10.innerHTML = value.data().uso;
-                    tdc11.innerHTML = value.data().precio_publico;
-                    tdc12.innerHTML = value.data().precio_semi;
-                    tdc13.innerHTML = value.data().precio_mayoreo;
-                    tdc14.innerHTML = "16%";
+                thc.innerHTML = value.data().id_art;
+                tdc1.innerHTML = value.data().nombre;
+                tdc2.innerHTML = value.data().categoria;
+                tdc3.innerHTML = value.data().subcategoria;
+                tdc4.innerHTML = value.data().marca_lab;
+                tdc5.innerHTML = value.data().descripcion;
+                tdc6.innerHTML = value.data().presentacion;
+                tdc7.innerHTML = value.data().stock;
+                tdc8.innerHTML = value.data().unidad;
+                tdc9.innerHTML = value.data().peso;
+                tdc10.innerHTML = value.data().uso;
+                tdc11.innerHTML = value.data().precio_publico;
+                tdc12.innerHTML = value.data().precio_semi;
+                tdc13.innerHTML = value.data().precio_mayoreo;
+                tdc14.innerHTML = value.data().iva;
 
-                    trc.appendChild(thc);
-                    trc.appendChild(tdc1);
-                    trc.appendChild(tdc2);
-                    trc.appendChild(tdc3);
-                    trc.appendChild(tdc4);
-                    trc.appendChild(tdc5);
-                    trc.appendChild(tdc6);
-                    trc.appendChild(tdc7);
-                    trc.appendChild(tdc8);
-                    trc.appendChild(tdc9);
-                    trc.appendChild(tdc10);
-                    trc.appendChild(tdc11);
-                    trc.appendChild(tdc12);
-                    trc.appendChild(tdc13);
-                    trc.appendChild(tdc14);
+                trc.appendChild(thc);
+                trc.appendChild(tdc1);
+                trc.appendChild(tdc2);
+                trc.appendChild(tdc3);
+                trc.appendChild(tdc4);
+                trc.appendChild(tdc5);
+                trc.appendChild(tdc6);
+                trc.appendChild(tdc7);
+                trc.appendChild(tdc8);
+                trc.appendChild(tdc9);
+                trc.appendChild(tdc10);
+                trc.appendChild(tdc11);
+                trc.appendChild(tdc12);
+                trc.appendChild(tdc13);
+                trc.appendChild(tdc14);
 
 
-                    const editbtn = document.createElement('button');
-                    const delbtn = document.createElement('button');
+                const editbtn = document.createElement('button');
+                const delbtn = document.createElement('button');
 
-                    delbtn.innerHTML = "Borrar"
-                    editbtn.innerHTML = "Editar"
-                    delbtn.className+="deleteBtn"
-                    editbtn.className+="editBtn"
-                        //let aid = value.data().id_art
-                    delbtn.addEventListener("click", function() {
-                        //buscarDoc(aid) solo cuando no es snap
-                        Page.borrarDoc(value.id)
-                    })
-                    editbtn.addEventListener("click", function() {
-                        editarDoc(aid)
-                    });
-
-                    buttons.appendChild(editbtn);
-                    buttons.appendChild(delbtn);
-                    trc.appendChild(buttons);
-                    tabla.appendChild(trc);
+                delbtn.innerHTML = "Borrar"
+                editbtn.innerHTML = "Editar"
+                delbtn.className += "deleteBtn"
+                editbtn.className += "editBtn"
+                    //let aid = value.data().id_art
+                delbtn.addEventListener("click", function() {
+                    //buscarDoc(aid) solo cuando no es snap
+                    Page.borrarDoc(value.id)
                 })
+                editbtn.addEventListener("click", function() {
+                    editarDoc(aid)
+                });
+
+                buttons.appendChild(editbtn);
+                buttons.appendChild(delbtn);
+                trc.appendChild(buttons);
+                tabla.appendChild(trc);
             })
-            .catch(function(err) {
-                console.log("error", err);
-            })
+        })
     },
 
     borrarDoc: function(idDocumento) {
-    var invRef = firestore.collection("inventarios/inventario1/articulos");
-    invRef.doc(idDocumento).delete().then(function() {
-        console.log("Document successfully deleted!");
-        //window.alert("Se ha eliminado el articulo, recarga para visualizar")
+        var invRef = firestore.collection("inventarios/inventario1/articulos");
+        invRef.doc(idDocumento).delete().then(function() {
+            console.log("Document successfully deleted!");
+            //window.alert("Se ha eliminado el articulo, recarga para visualizar")
 
-    }).catch(function(error) {
-        console.error("Error removing document: ", error);
-        window.alert("No se ha podido borrar el elemento ERROR!")
-    });
+        }).catch(function(error) {
+            console.error("Error removing document: ", error);
+            window.alert("No se ha podido borrar el elemento ERROR!")
+        });
 
-},
+    },
+
+    limpiaAgregar: function(target, modal) {
+
+        const elm1 = target.querySelector("#idart")
+        const elm2 = target.querySelector("#nombre")
+        const elm3 = target.querySelector("#subnombre")
+        const elm4 = target.querySelector("#categoria")
+        const elm5 = target.querySelector("#pres")
+        const elm6 = target.querySelector("#subcategoria")
+        const elm7 = target.querySelector("#cant")
+        const elm8 = target.querySelector("#unidad")
+        const elm9 = target.querySelector("#peso")
+        const elm10 = target.querySelector("#uso")
+        const elm11 = target.querySelector("#marca_lab")
+        const elm12 = target.querySelector("#descripcion")
+        const elm13 = target.querySelector("#precio")
+        const elm14 = target.querySelector("#semi")
+        const elm15 = target.querySelector("#mayoreo")
+        const elm16 = target.querySelector("#iva")
+
+        elm1.innerHTML = ""
+        elm2.innerHTML = ""
+        elm3.innerHTML = ""
+        elm4.innerHTML = ""
+        elm5.innerHTML = ""
+        elm6.innerHTML = ""
+        elm7.innerHTML = ""
+        elm8.innerHTML = ""
+        elm9.innerHTML = ""
+        elm10.innerHTML = ""
+        elm11.innerHTML = ""
+        elm12.innerHTML = ""
+        elm13.innerHTML = ""
+        elm14.innerHTML = ""
+        elm15.innerHTML = ""
+        elm16.innerHTML = ""
+
+    },
 
     ArticleSell: {
         items: null,
