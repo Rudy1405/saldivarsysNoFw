@@ -497,14 +497,31 @@ var Page = {
                 tdc6.innerHTML = value.data().presentacion;
 
                 tdc7.innerHTML = value.data().stock;
+                tdc7.id = "stock_" + value.data().id_art;
+                tdc7.contentEditable = "true";
+                tdc7.style.color = "#28a745"
 
                 tdc8.innerHTML = value.data().unidad;
 
                 tdc9.innerHTML = value.data().peso;
+
                 tdc10.innerHTML = value.data().uso;
+
                 tdc11.innerHTML = value.data().precio_publico;
+                tdc11.id = "precioP_" + value.data().id_art;
+                tdc11.contentEditable = "true";
+                tdc11.style.color = "#28a745"
+
                 tdc12.innerHTML = value.data().precio_semi;
+                tdc12.id = "precioS_" + value.data().id_art;
+                tdc12.contentEditable = "true";
+                tdc12.style.color = "#28a745"
+
                 tdc13.innerHTML = value.data().precio_mayoreo;
+                tdc13.id = "precioM_" + value.data().id_art;
+                tdc13.contentEditable = "true";
+                tdc13.style.color = "#28a745"
+
                 tdc14.innerHTML = value.data().iva;
 
                 trc.appendChild(thc);
@@ -522,7 +539,7 @@ var Page = {
                 trc.appendChild(tdc12);
                 trc.appendChild(tdc13);
                 trc.appendChild(tdc14);
-
+                trc.id = "row_" + value.data().id_art;
 
                 const editbtn = document.createElement('button');
                 const delbtn = document.createElement('button');
@@ -537,7 +554,7 @@ var Page = {
                     Page.borrarDoc(value.id)
                 })
                 editbtn.addEventListener("click", function() {
-                    editarDoc(aid)
+                    Page.editarDoc(value.id, tdc7.id, tdc11.id, tdc12.id, tdc13.id, trc.id)
                 });
 
                 buttons.appendChild(editbtn);
@@ -546,6 +563,41 @@ var Page = {
                 tabla.appendChild(trc);
             })
         })
+    },
+
+    editarDoc: function(idDocumento, idTd1, idTd2, idTd3, idTd4, idFila) {
+        /// se obtiene la referencia de que articulo vamos a actualizar 
+        var articuloRef = firestore.collection("inventarios/inventario1/articulos").doc(idDocumento);
+        //obtenemos los ID de las cols de la tabla que tiene los elementos editables
+
+        const stockCol = document.getElementById(idTd1)
+        const ppCol = document.getElementById(idTd2)
+        const psCol = document.getElementById(idTd3)
+        const pmCol = document.getElementById(idTd4)
+
+
+        // Set los valores qeu contienen los tags en ese momento ahora en la bd
+        return articuloRef.update({
+                stock: stockCol.innerHTML,
+                precio_publico: ppCol.innerHTML,
+                precio_mayoreo: pmCol.innerHTML,
+                precio_semi: psCol.innerHTML
+            })
+            .then(function() {
+                console.log("Document successfully updated! ", idFila)
+                    //row.style.backgroundColor = "#26a60066"
+                const rowland = document.getElementById(idFila)
+                rowland.style.backgroundColor = "#26a60066"
+                setTimeout(function() {
+                    rowland.style.backgroundColor = ""
+                }, 800);
+
+            })
+            .catch(function(error) {
+                // The document probably doesn't exist.
+                console.error("Error updating document: ", error);
+            });
+
     },
 
     borrarDoc: function(idDocumento) {
