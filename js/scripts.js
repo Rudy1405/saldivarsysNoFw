@@ -47,14 +47,6 @@ function buscarDoc(aid) {
 
 
 
-<<<<<<< HEAD
-=======
-///TODO:  
-//  Validar que no se pueda agregar un producto si todo esta vacio, que de mensaje de error en OutpuHeader
-//  Limpiar elementos despues de haber dado click en agregar
->>>>>>> e81a596f48b6a1b3953eb59947505b9a539c0cba
-
-
 var Page = {
 
     /**
